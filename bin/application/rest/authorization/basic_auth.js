@@ -1,9 +1,9 @@
-const { UnauthorizedError } = require('../../../helper/error')
-const { basicAuth } = require('../../../config')
-const Wrapper = require('../../../helper/utils/wrapper')
+const { UnauthorizedError } = require('../../../helpers/error')
+const config = require('../../config')
+const Wrapper = require('../../../helpers/utils/wrapper')
 const wrapper = new Wrapper()
 
-const { username, password } = basicAuth
+const { username, password } = config.get('/basicAuth')
 
 class BasicAuth {
 

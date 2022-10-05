@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 
 class Password {
   constructor() {
-    this.saltRounds = 10;
+    this.saltRounds = 10
   }
 
   async hash(password) {

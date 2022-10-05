@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken')
-const { UnauthorizedError } = require('../../../helper/error')
-const Wrapper = require('../../../helper/utils/wrapper')
+const { UnauthorizedError } = require('../../../helpers/error')
+const Wrapper = require('../../../helpers/utils/wrapper')
 
-const config = require('../../../config')
-const { privateKey } = config.bearerAuth
+const config = require('../../config')
+const privateKey = config.get('/bearerAuth/privateKey')
 const expiresIn = '1h'
 const wrapper = new Wrapper()
 
@@ -31,4 +31,4 @@ class BearerAuth {
 
 }
 
-module.exports = BearerAuth;
+module.exports = BearerAuth

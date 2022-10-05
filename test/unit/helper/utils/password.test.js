@@ -1,9 +1,9 @@
 const { assert  } = require('chai')
 const sinon = require('sinon')
 const bcrypt = require('bcrypt')
-const Password = require('../../../../bin/helper/utils/password')
+const Password = require('../../../../bin/helpers/utils/password')
 
-describe('bin/helper/utils/password.js', () => {
+describe('bin/helpers/utils/password.js', () => {
   describe('class Password', () => {
     const password = new Password()
     describe('.hash', () => {

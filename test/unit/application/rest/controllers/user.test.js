@@ -1,12 +1,12 @@
 const sinon = require('sinon')
 const { assert } = require('chai')
-const UserAuth = require('../../../../../bin/application/rest/controllers/user_auth')
-const Wrapper = require('../../../../../bin/helper/utils/wrapper')
-const UserAuthDomain = require('../../../../../bin/domain/user_auth')
+const User = require('../../../../../bin/application/rest/controllers/user')
+const Wrapper = require('../../../../../bin/helpers/utils/wrapper')
+const UserDomain = require('../../../../../bin/domain/user')
 
-describe('bin/application/rest/controllers/user_auth.js', () => {
+describe('bin/application/rest/controllers/user.js', () => {
 
-  describe('class UserAuth', () => {
+  describe('class User', () => {
     describe('.login', () => {
       beforeEach(() => {
         sinon.stub(Wrapper.prototype, 'responseError').returns({ code: 401 })
@@ -16,31 +16,24 @@ describe('bin/application/rest/controllers/user_auth.js', () => {
         Wrapper.prototype.responseError.restore()
         Wrapper.prototype.response.restore()
       })
-      const userAuth = new UserAuth()
+      const user = new User()
       const res = {
         status: sinon.stub().returnsThis(),
         json: sinon.stub().returnsThis()
       }
       it('should return 401 if auth is not exist', async () => {
-        sinon.stub(UserAuthDomain.prototype, 'login').resolves(new Error())
+        sinon.stub(UserDomain.prototype, 'login').resolves(new Error())
         const req = { body: {} }
-        const result = await userAuth.login(req, res, () => { })
+        const result = await user.login(req, res, () => { })
         assert.deepEqual(result, { code: 401 })
-        UserAuthDomain.prototype.login.restore()
-      })
-      it('should return 401 if username is not exist', async () => {
-        sinon.stub(UserAuthDomain.prototype, 'login').resolves({ data: [] })
-        const req = { body: { username: 'test', password: 'test' } }
-        const result = await userAuth.login(req, res, () => { })
-        assert.deepEqual(result, { code: 401 })
-        UserAuthDomain.prototype.login.restore()
+        UserDomain.prototype.login.restore()
       })
       it('should return success login', async () => {
-        sinon.stub(UserAuthDomain.prototype, 'login').resolves({ data: [{ username: 'test', password: 'test' }] })
+        sinon.stub(UserDomain.prototype, 'login').resolves({ data: [{ username: 'test', password: 'test' }] })
         const req = { body: { username: 'test', password: 'test' } }
-        const result = await userAuth.login(req, res, () => { })
+        const result = await user.login(req, res, () => { })
         assert.deepEqual(result, { code: 200 })
-        UserAuthDomain.prototype.login.restore()
+        UserDomain.prototype.login.restore()
       })
     })
 
@@ -53,24 +46,24 @@ describe('bin/application/rest/controllers/user_auth.js', () => {
         Wrapper.prototype.responseError.restore()
         Wrapper.prototype.response.restore()
       })
-      const userAuth = new UserAuth()
+      const user = new User()
       const res = {
         status: sinon.stub().returnsThis(),
         json: sinon.stub().returnsThis()
       }
       it('should return 401 if register is error', async () => {
-        sinon.stub(UserAuthDomain.prototype, 'register').resolves(new Error())
+        sinon.stub(UserDomain.prototype, 'register').resolves(new Error())
         const req = { body: {} }
-        const result = await userAuth.register(req, res, () => { })
+        const result = await user.register(req, res, () => { })
         assert.deepEqual(result, { code: 401 })
-        UserAuthDomain.prototype.register.restore()
+        UserDomain.prototype.register.restore()
       })
       it('should return success register', async () => {
-        sinon.stub(UserAuthDomain.prototype, 'register').resolves({ data: { username: 'test', password: 'test' } })
+        sinon.stub(UserDomain.prototype, 'register').resolves({ data: { username: 'test', password: 'test' } })
         const req = { body: { username: 'test', password: 'test' } }
-        const result = await userAuth.register(req, res, () => { })
+        const result = await user.register(req, res, () => { })
         assert.deepEqual(result, { code: 201 })
-        UserAuthDomain.prototype.register.restore()
+        UserDomain.prototype.register.restore()
       })
     })
 
@@ -83,20 +76,20 @@ describe('bin/application/rest/controllers/user_auth.js', () => {
         Wrapper.prototype.responseError.restore()
         Wrapper.prototype.response.restore()
       })
-      const userAuth = new UserAuth()
+      const user = new User()
       const res = {
         status: sinon.stub().returnsThis(),
         json: sinon.stub().returnsThis()
       }
       it('should return 401 if get user is error', async () => {
-        sinon.stub(UserAuthDomain.prototype, 'getUser').resolves(new Error())
+        sinon.stub(UserDomain.prototype, 'getUser').resolves(new Error())
         const req = { user: {} }
-        const result = await userAuth.getUser(req, res, () => { })
+        const result = await user.getUser(req, res, () => { })
         assert.deepEqual(result, { code: 401 })
-        UserAuthDomain.prototype.getUser.restore()
+        UserDomain.prototype.getUser.restore()
       })
       it('should return success get user', async () => {
-        sinon.stub(UserAuthDomain.prototype, 'getUser').resolves({
+        sinon.stub(UserDomain.prototype, 'getUser').resolves({
           data: [{
             username: 'test',
             password: 'test',
@@ -106,9 +99,9 @@ describe('bin/application/rest/controllers/user_auth.js', () => {
           }]
         })
         const req = { user: { username: 'test', password: 'test' } }
-        const result = await userAuth.getUser(req, res, () => { })
+        const result = await user.getUser(req, res, () => { })
         assert.deepEqual(result, { code: 200 })
-        UserAuthDomain.prototype.getUser.restore()
+        UserDomain.prototype.getUser.restore()
       })
     })
   })

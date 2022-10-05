@@ -1,4 +1,4 @@
-const userAuthMigration = require('./user_auth')
+const userAuthMigration = require('./user')
 
 const init = () => {
   userAuthMigration()

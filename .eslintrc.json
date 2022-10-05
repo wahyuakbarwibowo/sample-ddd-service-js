@@ -1,4 +1,7 @@
 {
+    "ignorePatterns": [
+        "/test/**"
+    ],
     "env": {
         "node": true,
         "commonjs": true,
@@ -24,10 +27,6 @@
         "semi": [
             "error",
             "never"
-        ],
-        "space-before-blocks": [
-            "error",
-            1
         ],
         "keyword-spacing": [
             "error",

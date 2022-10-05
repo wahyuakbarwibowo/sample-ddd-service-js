@@ -1,9 +1,9 @@
 const { assert } = require('chai')
 const sinon = require('sinon')
-const Wrapper = require('../../../../bin/helper/utils/wrapper')
-const { InternalServerError } = require('../../../../bin/helper/error')
+const Wrapper = require('../../../../bin/helpers/utils/wrapper')
+const { InternalServerError } = require('../../../../bin/helpers/error')
 
-describe('bin/helper/utils/wrapper.js', () => {
+describe('bin/helpers/utils/wrapper.js', () => {
   describe('class Wrapper', () => {
     const wrapper = new Wrapper()
     describe('.response', () => {
@@ -32,21 +32,10 @@ describe('bin/helper/utils/wrapper.js', () => {
           message: 'error',
           code: 500,
           data: null,
-          success: false
+          success: false,
+          meta: undefined
         }), true)
         assert.equal(res.end.calledOnce, true)
-      })
-    })
-    describe('.data', () => {
-      it('success to data', () => {
-        assert.deepEqual(wrapper.data({ data: 'data' }),
-          { err: null, data: { data: 'data' } })
-      })
-    })
-    describe('.error', () => {
-      it('success to error', () => {
-        assert.deepEqual(wrapper.error('error'),
-          { err: 'error', data: null })
       })
     })
   })

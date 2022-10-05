@@ -7,20 +7,13 @@ class Wrapper {
 
   responseError(res, classError) {
     res.status(classError.code).json({
-      message: classError.message,
+      success: false,
       code: classError.code,
+      message: classError.message,
       data: classError.data,
-      success: false
+      meta: classError.meta
     })
     res.end()
-  }
-
-  data(data, message = null) {
-    return { err: message, data: data }
-  }
-
-  error(message, data = null) {
-    return { err: message, data }
   }
 }
 

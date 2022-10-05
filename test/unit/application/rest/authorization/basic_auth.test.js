@@ -1,10 +1,10 @@
 
 const { assert } = require('chai')
 const sinon = require('sinon')
-const Wrapper = require('../../../../../bin/helper/utils/wrapper')
+const Wrapper = require('../../../../../bin/helpers/utils/wrapper')
 const BasicAuth = require('../../../../../bin/application/rest/authorization/basic_auth')
-const { basicAuth } = require('../../../../../bin/config')
-const { username, password } = basicAuth
+const config = require('../../../../../bin/application/config')
+const { username, password } = config.get('/basicAuth')
 
 describe('bin/application/rest/authorization/basic_auth.js', () => {
   describe('class BasicAuth', () => {

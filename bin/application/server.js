@@ -12,7 +12,7 @@ class AppServer {
     this.server.use(express.urlencoded({ extended: true }))
     this.server.use(express.json())
     this.server.use(cors())
-    
+
     // routing
     this.server.use('/', routes)
 

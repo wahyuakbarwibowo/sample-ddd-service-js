@@ -1,6 +1,6 @@
 const { assert } = require('chai')
 const sinon = require('sinon')
-const Wrapper = require('../../../../../bin/helper/utils/wrapper')
+const Wrapper = require('../../../../../bin/helpers/utils/wrapper')
 const BearerAuth = require('../../../../../bin/application/rest/authorization/bearer_auth')
 const jwt = require('jsonwebtoken')
 

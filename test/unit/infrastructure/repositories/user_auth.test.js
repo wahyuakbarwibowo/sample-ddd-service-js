@@ -1,7 +1,7 @@
 const sinon = require('sinon')
 const { assert } = require('chai')
-const UserAuth = require('../../../../bin/infrastructure/repositories/user_auth')
-const Postgres = require('../../../../bin/helper/database/postgres')
+const UserAuth = require('../../../../bin/infrastructure/repositories/user')
+const Postgres = require('../../../../bin/helpers/database/postgres')
 
 describe('bin/infrastructure/repositories/user_auth.js', () => {
   describe('class UserAuth', () => {

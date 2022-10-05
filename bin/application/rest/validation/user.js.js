@@ -1,6 +1,6 @@
 const Joi = require('joi')
-const { UnprocessableEntityError } = require('../../../helper/error')
-const Wrapper = require('../../../helper/utils/wrapper')
+const { UnprocessableEntityError } = require('../../../helpers/error')
+const Wrapper = require('../../../helpers/utils/wrapper')
 const wrapper = new Wrapper()
 
 class UserAuth {

@@ -1,7 +1,7 @@
 const { expect } = require('chai')
-const BadRequestError = require('../../../../bin/helper/error/bad_request')
+const BadRequestError = require('../../../../bin/helpers/error/bad_request')
 
-describe('bin/helper/error/bad_request.js', () => {
+describe('bin/helpers/error/bad_request.js', () => {
   describe('class BadRequestError', () => {
     it('should return instance of BadRequestError', () => {
       const result = new BadRequestError('message')

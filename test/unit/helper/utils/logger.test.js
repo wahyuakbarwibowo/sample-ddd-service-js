@@ -1,7 +1,7 @@
 const { assert } = require('chai')
-const Logger = require('../../../../bin/helper/utils/logger')
+const Logger = require('../../../../bin/helpers/utils/logger')
 
-describe('bin/helper/utils/logger.js', () => {
+describe('bin/helpers/utils/logger.js', () => {
   describe('class Logger', () => {
     const logger = new Logger()
     describe('.log', () => {

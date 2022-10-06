@@ -21,7 +21,6 @@ class User {
           username
         }
       })
-      console.log(getUser)
       if (_.isNil(getUser)) {
         return new UnauthorizedError('username or password is incorrect')
       }
@@ -74,8 +73,6 @@ class User {
         email,
         password: hashPassword
       })
-
-      console.log(createUser)
       return createUser
     } catch (error) {
       return new InternalServerError(error.message)

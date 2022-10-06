@@ -35,6 +35,10 @@ describe('bin/application/rest/controllers/user.js', () => {
         assert.deepEqual(result, { code: 200 })
         UserDomain.prototype.login.restore()
       })
+      it('should return internal server error', async () => {
+        const result = await user.login()
+        assert.deepEqual(result, { code: 401 })
+      })
     })
 
     describe('.register', () => {
@@ -64,6 +68,10 @@ describe('bin/application/rest/controllers/user.js', () => {
         const result = await user.register(req, res, () => { })
         assert.deepEqual(result, { code: 201 })
         UserDomain.prototype.register.restore()
+      })
+      it('should return internal server error', async () => {
+        const result = await user.register()
+        assert.deepEqual(result, { code: 401 })
       })
     })
 

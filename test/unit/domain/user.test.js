@@ -13,11 +13,14 @@ const UserModel = require('../../../bin/infrastructure/repositories/user')
 describe('bin/domain/user.js', () => {
   describe('class User', () => {
     let findOneUserStub
+    let createUserStub
     beforeEach(() => {
       findOneUserStub = sinon.stub(UserModel, 'findOne')
+      createUserStub = sinon.stub(UserModel, 'create')
     })
     afterEach(() => {
       findOneUserStub.restore()
+      createUserStub.restore()
     })
 
     const user = new User()
@@ -30,7 +33,6 @@ describe('bin/domain/user.js', () => {
       it('should error unauthorized cause data not found', async () => {
         findOneUserStub.resolves(null)
         const result = await user.login(payload)
-        console.log(result)
         expect(result).to.be.an.instanceof(UnauthorizedError)
         findOneUserStub.restore()
       })
@@ -41,93 +43,67 @@ describe('bin/domain/user.js', () => {
         findOneUserStub.restore()
       })
       it('should succes return data', async () => {
-        findOneUserStub.resolves({ data: [{ password: 'password' }] })
-        sinon.stub(Password, 'compare').returns(true)
+        const password = new Password()
+        const passwordStub = await password.hash('password')
+        findOneUserStub.resolves({ password: passwordStub })
         const result = await user.login(payload)
         assert.deepEqual(result, {
-          data: [{
-            password: 'password'
-          }]
+          password: passwordStub
         })
-        Password.compare.restore()
         findOneUserStub.restore()
       })
-
+      it('should return internal server error', async () => {
+        findOneUserStub.resolves(null)
+        const result = await user.login()
+        expect(result).to.be.an.instanceOf(InternalServerError)
+        findOneUserStub.restore()
+      })
     })
 
     describe('.register', () => {
       const payload = {
-        uuid: 'uuid',
         name: 'name',
         username: 'username',
         email: 'test',
         password: 'password'
       }
-      it('should error get user by username from repository', async () => {
-        findOneUserStub.resolves({ err: true })
-        const user = new user({
-          getByUsername: sinon.fake.resolves({ err: true }),
-        })
-        const result = await user.register(payload)
+      it('should return internal server error', async () => {
+        findOneUserStub.resolves(null)
+        const result = await user.register()
         expect(result).to.be.an.instanceof(InternalServerError)
         findOneUserStub.restore()
       })
       it('should error username exist', async () => {
         findOneUserStub.resolves({
-          data: [{
-            username: 'username',
-            email: 'test'
-          }]
+          username: 'username',
+          email: 'test'
         })
         const result = await user.register(payload)
         expect(result).to.be.an.instanceof(UnprocessableEntityError)
         findOneUserStub.restore()
-      })
-      it('should error get user by email from repository', async () => {
-        findOneUserStub.resolves({ data: [] })
-        sinon.stub(UserModel, 'getByEmail').resolves({ err: true })
-        const result = await user.register(payload)
-        expect(result).to.be.an.instanceof(InternalServerError)
-        findOneUserStub.restore()
-        UserModel.getByEmail.restore()
       })
       it('should error email exist', async () => {
-        findOneUserStub.resolves({ data: [] })
-        sinon.stub(UserModel, 'getByEmail').resolves({
-          data: [{
-            email: 'test'
-          }]
+        findOneUserStub.onCall(0).resolves(null)
+        findOneUserStub.onCall(1).resolves({
+          username: 'username',
+          email: 'test'
         })
         const result = await user.register(payload)
         expect(result).to.be.an.instanceof(UnprocessableEntityError)
         findOneUserStub.restore()
-        UserModel.getByEmail.restore()
-      })
-      it('should error create user from repository', async () => {
-        findOneUserStub.resolves({ data: [] })
-        sinon.stub(UserModel, 'getByEmail').resolves({ data: [] })
-        sinon.stub(UserModel, 'insertUser').resolves({ err: true })
-        sinon.stub(Password, 'hash').returns('password')
-        const result = await user.register(payload)
-        expect(result).to.be.an.instanceof(InternalServerError)
-        Password.hash.restore()
-        findOneUserStub.restore()
-        UserModel.getByEmail.restore()
-        UserModel.insertUser.restore()
       })
       it('should success return data', async () => {
-        findOneUserStub.resolves({ data: [] })
-        sinon.stub(UserModel, 'getByEmail').resolves({ data: [] })
-        sinon.stub(UserModel, 'insertUser').resolves({ data: {} })
-        sinon.stub(Password, 'hash').returns('password')
+        findOneUserStub.onCall(0).resolves(null)
+        findOneUserStub.onCall(1).resolves(null)
+        createUserStub.resolves({
+          username: 'username'
+        })
         const result = await user.register(payload)
         assert.deepEqual(result, {
-          data: {}
+          username: 'username'
         })
-        Password.hash.restore()
         findOneUserStub.restore()
-        UserModel.getByEmail.restore()
-        UserModel.insertUser.restore()
+        createUserStub.restore()
       })
     })
 
@@ -135,29 +111,23 @@ describe('bin/domain/user.js', () => {
       const payload = {
         uuid: 'uuid',
       }
-      it('should error get user from repository', async () => {
-        findOneUserStub.resolves({ err: true })
-        const result = await user.getUser(payload)
+      it('should error internal server error', async () => {
+        const result = await user.getUser()
         expect(result).to.be.an.instanceof(InternalServerError)
-        findOneUserStub.restore()
       })
       it('should error data not found', async () => {
-        findOneUserStub.resolves({ data: [] })
+        findOneUserStub.resolves(null)
         const result = await user.getUser(payload)
         expect(result).to.be.an.instanceof(NotFoundError)
         findOneUserStub.restore()
       })
       it('should success return data', async () => {
         findOneUserStub.resolves({
-          data: [{
-            uuid: 'uuid',
-          }]
+          uuid: 'uuid'
         })
         const result = await user.getUser(payload)
         assert.deepEqual(result, {
-          data: [{
-            uuid: 'uuid'
-          }]
+          uuid: 'uuid'
         })
         findOneUserStub.restore()
       })

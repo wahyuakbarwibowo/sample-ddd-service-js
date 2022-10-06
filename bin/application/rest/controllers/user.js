@@ -24,10 +24,10 @@ class User {
         token: bearerAuth.generateToken(tokenPayload, { expiresIn: '1h' }),
       }
       return wrapper.response(res, 200, {
-        message: 'login success',
+        success: true,
         code: 200,
-        data,
-        success: true
+        message: 'login success',
+        data
       })
     } catch (error) {
       return wrapper.responseError(res, new InternalServerError('an occured error'))

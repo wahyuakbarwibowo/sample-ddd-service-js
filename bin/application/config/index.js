@@ -6,20 +6,19 @@ dotenv.config()
 const config = {
   server: {
     name: packageJson.name,
-    port: process.env.PORT || 3000,
-    host: process.env.NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1',
+    port: process.env.PORT,
     env: process.env.NODE_ENV,
   },
   basicAuth: {
-    username: process.env.BASIC_AUTH_USERNAME || 'basicAuthUsername',
-    password: process.env.BASIC_AUTH_PASSWORD || 'basicAuthPassword'
+    username: process.env.BASIC_AUTH_USERNAME,
+    password: process.env.BASIC_AUTH_PASSWORD
   },
   bearerAuth: {
-    privateKey: process.env.BEARER_AUTH_PRIVATE_KEY || 'bearerAuthPrivateKey'
+    privateKey: process.env.BEARER_AUTH_PRIVATE_KEY
   },
   database: {
     postgres: {
-      url: process.env.POSTGRES_URL || 'postgres://postgres:postgres@localhost:5432/postgres'
+      url: process.env.POSTGRES_URL
     }
   }
 }

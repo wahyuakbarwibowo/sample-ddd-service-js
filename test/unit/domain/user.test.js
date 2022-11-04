@@ -1,6 +1,6 @@
 const { assert, expect } = require('chai')
 const sinon = require('sinon')
-const User = require('../../../bin/domain/user')
+const User = require('../../../bin/domain/user.domain')
 const Password = require('../../../bin/helpers/utils/password')
 const {
   InternalServerError,
@@ -8,7 +8,7 @@ const {
   UnprocessableEntityError,
   NotFoundError
 } = require('../../../bin/helpers/error')
-const UserModel = require('../../../bin/infrastructure/repositories/user')
+const UserModel = require('../../../bin/infrastructure/repositories/user.repo')
 
 describe('bin/domain/user.js', () => {
   describe('class User', () => {

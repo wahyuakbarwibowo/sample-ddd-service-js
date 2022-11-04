@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const BasicAuth = require('../rest/authorization/basic_auth')
 const BearerAuth = require('../rest/authorization/bearer_auth')
-const UserValid = require('../rest/validation/user.js')
-const UserControl = require('../rest/controllers/user')
+const UserValid = require('../rest/validation/user.validation')
+const UserControl = require('../rest/controllers/user.controller')
 
 const basicAuth = new BasicAuth()
 const bearerAuth = new BearerAuth()

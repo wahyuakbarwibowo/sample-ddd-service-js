@@ -1,5 +1,5 @@
 const Wrapper = require('../../../helpers/utils/wrapper')
-const UserDomain = require('../../../domain/user')
+const UserDomain = require('../../../domain/user.domain')
 const { InternalServerError } = require('../../../helpers/error')
 const BearerAuth = require('../authorization/bearer_auth')
 

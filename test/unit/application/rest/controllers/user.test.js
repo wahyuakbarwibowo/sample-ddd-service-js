@@ -1,8 +1,8 @@
 const sinon = require('sinon')
 const { assert } = require('chai')
-const User = require('../../../../../bin/application/rest/controllers/user')
+const User = require('../../../../../bin/application/rest/controllers/user.controller')
 const Wrapper = require('../../../../../bin/helpers/utils/wrapper')
-const UserDomain = require('../../../../../bin/domain/user')
+const UserDomain = require('../../../../../bin/domain/user.domain')
 
 describe('bin/application/rest/controllers/user.js', () => {
 

@@ -6,7 +6,7 @@ const {
   NotFoundError
 } = require('../helpers/error')
 const Password = require('../helpers/utils/password')
-const UserModel = require('../infrastructure/repositories/user')
+const UserModel = require('../infrastructure/repositories/user.repo')
 
 const passwordUtils = new Password()
 

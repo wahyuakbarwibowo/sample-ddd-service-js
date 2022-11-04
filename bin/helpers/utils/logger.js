@@ -16,36 +16,22 @@ class Logger {
     })
   }
 
-  log(context, message, scope) {
+  info(message, meta = undefined) {
     const obj = {
-      context,
-      scope,
-      message: message,
-      idtime: formatToTimeZone(new Date(), 'YYYY-MM-DD HH:mm:ss', { timeZone: 'Asia/Jakarta' })
-    }
-    return this.logger.info(obj)
-  }
-
-  info(context, message, scope, meta = undefined) {
-    const obj = {
-      context,
-      scope,
       message: message,
       meta,
       idtime: formatToTimeZone(new Date(), 'YYYY-MM-DD HH:mm:ss', { timeZone: 'Asia/Jakarta' })
     }
-    return this.logger.info(obj)
+    return this.logger.info(message, obj)
   }
 
-  error(context, message, scope, meta = undefined) {
+  error(message, error, meta = undefined) {
     const obj = {
-      context,
-      scope,
       message: message,
       meta,
       idtime: formatToTimeZone(new Date(), 'YYYY-MM-DD HH:mm:ss', { timeZone: 'Asia/Jakarta' })
     }
-    return this.logger.error(obj)
+    return this.logger.error(message, error, obj)
   }
 }
 

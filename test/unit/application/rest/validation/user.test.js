@@ -1,6 +1,6 @@
 const { assert } = require('chai')
 const sinon = require('sinon')
-const UserAuth = require('../../../../../bin/application/rest/validation/user.js.js')
+const UserAuth = require('../../../../../bin/application/rest/validation/user.validation')
 const Wrapper = require('../../../../../bin/helpers/utils/wrapper')
 
 describe('bin/application/rest/validation/user_auth.js', () => {

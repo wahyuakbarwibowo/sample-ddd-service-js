@@ -8,5 +8,5 @@ const { name, port } = config.get('/server')
 const logger = new Logger()
 
 appServer.server.listen(port, () => {
-  logger.log('server::listen', `${name} server listening on port ${port}`, 'initiate application')
+  logger.info(`server::listen ${name} server listening on port ${port}`, 'initiate application')
 })

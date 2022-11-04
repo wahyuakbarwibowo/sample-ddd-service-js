@@ -5,7 +5,7 @@ const {
   NotFoundError,
   ServiceUnavailableError
 } = require('../../helpers/error')
-const user = require('./user')
+const user = require('./user.route')
 
 const wrapper = new Wrapper()
 

@@ -1,4 +1,5 @@
 const winston = require('winston')
+const httpContext = require('express-http-context')
 const { formatToTimeZone } = require('date-fns-timezone')
 
 class Logger {
@@ -16,13 +17,19 @@ class Logger {
     })
   }
 
+  formatMessage(message) {
+    const reqId = httpContext.get('reqId')
+    message = reqId ? `${message} reqId: ${reqId}` : message
+    return message
+  }
+
   info(message, meta = undefined) {
     const obj = {
       message: message,
       meta,
       idtime: formatToTimeZone(new Date(), 'YYYY-MM-DD HH:mm:ss', { timeZone: 'Asia/Jakarta' })
     }
-    return this.logger.info(message, obj)
+    return this.logger.info(this.formatMessage(message), obj)
   }
 
   error(message, error, meta = undefined) {
@@ -31,7 +38,7 @@ class Logger {
       meta,
       idtime: formatToTimeZone(new Date(), 'YYYY-MM-DD HH:mm:ss', { timeZone: 'Asia/Jakarta' })
     }
-    return this.logger.error(message, error, obj)
+    return this.logger.error(this.formatMessage(message), error, obj)
   }
 }
 

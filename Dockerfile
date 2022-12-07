@@ -4,7 +4,7 @@ WORKDIR /app
 RUN apk add --update --no-cache --virtual .build-dev git
 RUN npm i -g npm pm2
 
-COPY package*.json ./
+COPY package.json ./
 
 RUN npm i
 RUN apk del .build-dev

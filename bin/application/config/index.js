@@ -1,11 +1,11 @@
-const packageJson = require('../../../package.json')
+const package = require('../../../package.json')
 const dotenv = require('dotenv')
 const Confidence = require('confidence')
 
 dotenv.config()
 const config = {
   server: {
-    name: packageJson.name,
+    name: package.name,
     port: process.env.PORT,
     env: process.env.NODE_ENV,
   },
